@@ -1,0 +1,18 @@
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin input {
+  margin-bottom: -1px;
+  border-radius: 0;
+  margin: 00 00 10px 00
+}
+
+.btn.btn-primary {
+  border-radius: 0;
+  color: #444;
+  background-color: #ddd;
+  border: #ccc 1px solid;
+}
