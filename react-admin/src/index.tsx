@@ -2,8 +2,9 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import axios from 'axios'
+import URLS from './constants'
 
-axios.defaults.baseURL = 'http://localhost:8000/api/'
+axios.defaults.baseURL = URLS.base_api_url
 axios.defaults.withCredentials = true
 
 const root = ReactDOM.createRoot(
