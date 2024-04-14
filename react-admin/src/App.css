@@ -126,3 +126,16 @@ ul.pagination {
 table .actions button {
   border: 1px solid #ccc;
 }
+.add-user-box {
+  font-size: 11px;
+  margin: 00 00 10px 00;
+  text-align: left;
+}
+
+.add-user-box a {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color:#333;
+}

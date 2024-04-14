@@ -4,10 +4,23 @@
   padding: 1rem;
 }
 
-.form-signin input {
+.form-signin input::placeholder, .form-signin select::placeholder {
+  color: #aaa;
+}
+
+.form-signin input, .form-signin select {
   margin-bottom: -1px;
   border-radius: 0;
   margin: 00 00 10px 00
+}
+
+.form-add input, .form-add select{
+  font-size: 12px;
+}
+
+.form-signin select {
+  appearance: auto;
+  text-transform: capitalize;
 }
 
 .btn.btn-primary {

@@ -58,6 +58,9 @@ const Users = () => {
 
     return (
         <Wrapper>
+            <div className="add-user-box">
+                <a href="/users/create">Add</a>
+            </div>
             <div className="table-responsive small">
                 <table className="table table-striped table-sm border">
                     <thead>
