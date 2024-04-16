@@ -3,9 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css'
 import Dashboard from './pages/Dashboard'
 import Users from './pages/users/Users'
+import Roles from './pages/roles/Roles'
+import RolesCreate from './pages/roles/RolesCreate'
 import UsersCreate from './pages/users/UsersCreate'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import UsersEdit from './pages/users/UsersEdit';
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
             <Route path={'/login'} Component={Login} />
             <Route path={'/users'} Component={Users} />
             <Route path={'/users/create'} Component={UsersCreate} />
+            <Route path={'/users/:id/edit'} Component={UsersEdit} />
+            <Route path={'/roles'} Component={Roles} />
+            <Route path={'/roles/create'} Component={RolesCreate} />
           </Routes>        
       </div>
       </BrowserRouter>

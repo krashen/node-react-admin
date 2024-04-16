@@ -1,15 +1,21 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
 import axios from 'axios'
 import '../../Form.css'
+
+interface MatchParams {
+    name: string;
+}
+
+
 
 type RoleType = {
     id: number;
     name: string;
 }
 
-const UsersCreate = () => {
+const UsersEdit = () => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -17,13 +23,23 @@ const UsersCreate = () => {
     const [roleId, setRoleId] = useState('')
     const [roles, setRoles] = useState([])
     const [redirectAfter, setRedirectAfter] = useState(false)
+    const {id} = useParams()
 
     useEffect(() => {
         (
             async () => {
                 try {
-                    const {data} = await axios.get('roles')
-                    setRoles(data)
+                    const response = await axios.get('roles')
+                    const {data} =  await axios.get(`users/${id}`)
+
+                    setRoles(response.data)
+
+                    setFirstName(data.first_name)
+                    setLastName(data.last_name)
+                    setEmail(data.email)
+                    setRoleId(data.role.id)
+
+
                 } catch(e) {
                     console.log(e)
                 }
@@ -36,14 +52,14 @@ const UsersCreate = () => {
         e.preventDefault()
 
         try {
-            const response = await axios.post('users',{
+            const response = await axios.put(`users/${id}`,{
                 first_name: firstName,
                 last_name: lastName,
                 email,
                 role_id: roleId
             })
             console.log(response)
-            if (response.status === 201) {
+            if (response.status === 202) {
                 setRedirectAfter(true)           
             }
         } catch(e) {
@@ -61,10 +77,11 @@ const UsersCreate = () => {
             {redirectAfter && <Navigate to={'/users'} />}
             <div className='form-signin form-add w-100 m-auto'>
                 <form onSubmit={handleSubmit}>
-                    <h1 className="h3 mb-3 fw-normal">Add User</h1>
+                    <h1 className="h3 mb-3 fw-normal">Edit User</h1>
 
                     <input
-                        className="form-control" 
+                        className="form-control"
+                        defaultValue={firstName} 
                         placeholder="First name"
                         onChange={e => setFirstName(e.target.value)}
                         required 
@@ -73,13 +90,15 @@ const UsersCreate = () => {
                     <input
                         className="form-control" 
                         placeholder="Last name"
+                        defaultValue={lastName} 
                         onChange={e => setLastName(e.target.value)}
                         required 
                     />
 
                     <input
                         type="email" 
-                        className="form-control" 
+                        className="form-control"
+                        defaultValue={email}  
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Email" 
                         required 
@@ -88,6 +107,7 @@ const UsersCreate = () => {
                     <select 
                         className='form-control'
                         onChange={e => setRoleId(e.target.value)}
+                        value={roleId} 
                     >
                         {
                             roles.map((r: RoleType) => {
@@ -99,7 +119,7 @@ const UsersCreate = () => {
                     </select>
                     
                     <button
-                        className="btn btn-primary w-100 py-2" type="submit">Add</button>
+                        className="btn btn-primary w-100 py-2" type="submit">Save</button>
                     
                 </form>
             </div>
@@ -107,4 +127,4 @@ const UsersCreate = () => {
     )
 }
 
-export default UsersCreate
+export default UsersEdit

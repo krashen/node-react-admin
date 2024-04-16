@@ -125,6 +125,15 @@ ul.pagination {
 
 table .actions button {
   border: 1px solid #ccc;
+  margin: 00 5px 00 00;
+}
+table .actions a {
+  border: 1px solid #ccc;
+  margin: 00 5px 00 00;
+  text-decoration: none;
+  color: #333;
+  display: inline-block;
+  padding: 1px 3px;
 }
 .add-user-box {
   font-size: 11px;
@@ -138,4 +147,8 @@ table .actions button {
   border: 1px solid #ccc;
   text-decoration: none;
   color:#333;
+}
+
+.actions .delete-button {
+  color:#990000
 }

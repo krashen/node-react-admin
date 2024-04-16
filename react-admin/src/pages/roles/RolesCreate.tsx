@@ -9,7 +9,7 @@ type RoleType = {
     name: string;
 }
 
-const UsersCreate = () => {
+const RolesCreate = () => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -107,4 +107,4 @@ const UsersCreate = () => {
     )
 }
 
-export default UsersCreate
+export default RolesCreate

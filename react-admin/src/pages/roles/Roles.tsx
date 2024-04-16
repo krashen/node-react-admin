@@ -1,66 +1,47 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
-type UserType = {
+type RoleType = {
     id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    role?: {
-        name: string
-    };
-    action: string
+    name: string;
 }
 
-const Users = () => {
-    const [users, setUsers] = useState([])
-    const [page, setPage] = useState(1)
-    const [lastPage, setLastPage] = useState(0)
+const Roles = () => {
+
+    const [roles, setRoles] = useState([])
 
     useEffect(() => {
         (   
             async () => {
                 try {
-                    const {data} = await axios.get(`users?page=${page}`)
-                    setUsers(data.data)
-                    setLastPage(data.meta.last_page)
+                    const {data} = await axios.get('roles')
+                    setRoles(data)
                 }catch(e){
                     console.log(e)
                 }                  
             }
         )()
-    }, [page])
+    },[])
 
-    const handleNextPage = () => {
-        if (page === lastPage) return
-        setPage(page + 1)
-    
-    }
-    const handlePreviousPage = () => {
-        if (page === 1) return
-        setPage(page - 1)
-    }
-
-    const deleteUser = async (id: number) => {
-        if (window.confirm('Are you sure you want to delete this record?')){
-
+    const deleteRole = async (id: number) => {
+            
+        if (window.confirm('Are you sure you want to delete this role?')) {
             try {
-                await axios.delete(`users/${id}`)
-                setUsers(users.filter((u: UserType) => {
-                    return u.id !== id
-                }))
+                const response = await axios.delete(`role/${id}`)
+                console.log(response)
+                setRoles(roles.filter((r: RoleType) => r.id !== id))
             }catch(e){
                 console.log(e)
-            }           
-        }
+            }
+        }                       
     }
 
     return (
         <Wrapper>
             <div className="add-user-box">
-                <a href="/users/create">Add</a>
+                    <a href="/users/create">Add</a>
             </div>
             <div className="table-responsive small">
                 <table className="table table-striped table-sm border">
@@ -68,24 +49,20 @@ const Users = () => {
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        users.map((u: UserType) => {
+                        roles.map((r: RoleType) => {
                             return (
-                                <tr key={u.id}>
-                                    <td>{u.id}</td>
-                                    <td>{`${u.first_name} ${u.last_name}`}</td>
-                                    <td>{u.email}</td>
-                                    <td>{u.role?.name}</td>
+                                <tr key={r.id}>
+                                    <td>{r.id}</td>
+                                    <td>{r.name}</td>
                                     <td className='actions'>
-                                        <Link to={`/users/${u.id}/edit`}>Edit</Link>
+                                        <Link to={`/roles/${r.id}/edit`}>Edit</Link>
                                         <button 
-                                            onClick={() => {deleteUser(u.id)}}
+                                            onClick={() => {deleteRole(r.id)}}
                                             className='delete-button'
                                         >
                                             Delete
@@ -100,6 +77,7 @@ const Users = () => {
                     </tbody>
                 </table>
             </div>
+            {/*}
             <nav className='pagination-nav'>
                 <ul className="pagination">
                     <li className="page-item">
@@ -122,9 +100,10 @@ const Users = () => {
                         </button>
                     </li>
                 </ul>
-            </nav>
+            </nav> 
+            {*/}
         </Wrapper>
     )
 }
 
-export default Users
+export default Roles
