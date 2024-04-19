@@ -1,19 +1,17 @@
 import { useState } from 'react'
 
-const Paginator = (props: {lastPage: number, pageChanged: (page: number) => void}) => {
-
-    const [page, setPage] = useState(1)
+const Paginator = (props: {page: number, lastPage: number, pageChanged: (page: number) => void}) => {
 
     const handleNextPage = () => {
-        if (page === props.lastPage) return
-            setPage(page + 1)
-            props.pageChanged(page + 1)
+        if (props.page === props.lastPage) return
+            
+        props.pageChanged(props.page + 1)
     
     }
     const handlePreviousPage = () => {
-        if (page === 1) return
-        setPage(page - 1)
-        props.pageChanged(page - 1)
+        if (props.page === 1) return
+        
+        props.pageChanged(props.page - 1)
     }
 
     return (
@@ -23,7 +21,7 @@ const Paginator = (props: {lastPage: number, pageChanged: (page: number) => void
                     <button 
                         className="page-link" 
                         onClick={handlePreviousPage}
-                        disabled={page === 1}
+                        disabled={props.page === 1}
                     >
                         <span aria-hidden="true">&laquo;</span>
                     </button>
@@ -33,7 +31,7 @@ const Paginator = (props: {lastPage: number, pageChanged: (page: number) => void
                     <button
                         className="page-link"
                         onClick={handleNextPage}
-                        disabled={page === props.lastPage}
+                        disabled={props.page === props.lastPage}
                     >
                         <span aria-hidden="true">&raquo;</span>
                     </button>

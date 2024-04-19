@@ -91,7 +91,7 @@ const Products = () => {
                     </tbody>
                 </table>
             </div>
-            <Paginator lastPage={lastPage} pageChanged={setPage}/>
+            <Paginator page={page} lastPage={lastPage} pageChanged={setPage}/>
         </Wrapper>
     )
 }

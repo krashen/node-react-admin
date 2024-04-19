@@ -34,16 +34,6 @@ const Users = () => {
         )()
     }, [page])
 
-    const handleNextPage = () => {
-        if (page === lastPage) return
-        setPage(page + 1)
-    
-    }
-    const handlePreviousPage = () => {
-        if (page === 1) return
-        setPage(page - 1)
-    }
-
     const deleteUser = async (id: number) => {
         if (window.confirm('Are you sure you want to delete this record?')){
 
@@ -101,7 +91,7 @@ const Users = () => {
                     </tbody>
                 </table>
             </div>
-            <Paginator lastPage={lastPage} pageChanged={setPage}/>
+            <Paginator page={page} lastPage={lastPage} pageChanged={setPage}/>
         </Wrapper>
     )
 }
