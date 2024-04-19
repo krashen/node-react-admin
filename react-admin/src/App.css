@@ -150,5 +150,14 @@ table .actions a {
 }
 
 .actions .delete-button {
-  color:#990000
+  color:#990000;
+}
+
+.table-products td img {
+  width:100px;
+}
+
+.table-products td.description{
+  max-width: 450px;
+  
 }

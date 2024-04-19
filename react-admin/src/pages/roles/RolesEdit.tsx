@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
 import axios from 'axios'
 import '../../Form.css'
@@ -10,21 +10,30 @@ type RoleType = {
     name: string;
 }
 
-const RolesCreate = () => {
+type PermissionType = {
+    id: number;
+    name: string;
+}
+
+const RolesEdit = () => {
 
     const [permissions, setPermissions] = useState([])
     const [name, setName] = useState('')
     const [redirectAfter, setRedirectAfter] = useState(false)
     const [selected, setSelected] = useState([] as number[])
+    const {id} = useParams()
 
     useEffect(() => {
         (
             async () => {
                 try {
-                    const {data} = await axios.get('permissions')
+                    const {data} = await axios.get(`roles/${id}`)
+                    const permissionsList = await axios.get('permissions')
 
-                    setPermissions(data)
-                    
+                    setName(data.name)
+                    setSelected(data.permissions.map((p:PermissionType) => p.id))
+                    setPermissions(permissionsList.data)
+                                       
                 } catch(e) {
                     console.log(e)
                 }
@@ -51,7 +60,7 @@ const RolesCreate = () => {
         e.preventDefault()
 
         try {
-            const {data} = await axios.post('roles', {
+            const {data} = await axios.put(`roles/${id}`, {
                 name,
                 permissions: selected
             })
@@ -69,10 +78,11 @@ const RolesCreate = () => {
             {redirectAfter && <Navigate to={'/roles'} />}
             <div className='form-signin form-add w-100 m-auto'>
                 <form onSubmit={handleSubmit}>
-                    <h1 className="h3 mb-3 fw-normal">Add Role</h1>
+                    <h1 className="h3 mb-3 fw-normal">Edit Role</h1>
                     <input
                         className="form-control" 
                         placeholder="Name"
+                        defaultValue={name}
                         onChange={e => setName(e.target.value)}
                         required 
                     />
@@ -85,6 +95,7 @@ const RolesCreate = () => {
                                         className="form-check-input" 
                                         value={p.id}
                                         type="checkbox" 
+                                        checked={selected.some(s => s === p.id)}
                                         onChange={() => onCheck(p.id)}
                                     />
                                     <label className="form-check-label">{formatName(p.name)}</label>
@@ -103,4 +114,4 @@ const RolesCreate = () => {
     )
 }
 
-export default RolesCreate
+export default RolesEdit

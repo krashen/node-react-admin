@@ -1,6 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
+import { capitalizeWord } from '../../utils'
 import axios from 'axios'
 import '../../Form.css'
 
@@ -50,10 +51,6 @@ const UsersCreate = () => {
             console.log(e)
         }
 
-    }
-
-    const capitalizeWord = (w: string): string => {
-        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() 
     }
 
     return (

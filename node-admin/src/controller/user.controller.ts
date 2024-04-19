@@ -4,7 +4,7 @@ import { User } from '../entity/user.entity';
 import bc from 'bcryptjs'
 
 export const Users = async (req: Request, res: Response) => {
-    const itemsPerPage = 5
+    const itemsPerPage = 4
     const page = parseInt(req.query.page as string) || 1
     const repository = AppDataSource.getRepository(User)
 

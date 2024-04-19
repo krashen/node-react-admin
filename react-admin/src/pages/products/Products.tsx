@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import Paginator from '../../components/Paginator.component'
 
-type UserType = {
+type ProductType = {
     id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    role?: {
-        name: string
-    };
-    action: string
+    title: string;
+    description: string;
+    image: string;
+    price: number;
 }
 
-const Users = () => {
-    const [users, setUsers] = useState([])
+const Products = () => {
+    
+    const [products, setProducts] = useState([])
     const [page, setPage] = useState(1)
     const [lastPage, setLastPage] = useState(0)
 
@@ -24,69 +22,61 @@ const Users = () => {
         (   
             async () => {
                 try {
-                    const {data} = await axios.get(`users?page=${page}`)
-                    setUsers(data.data)
+                    const {data} = await axios.get(`products?page=${page}`)
+                    setProducts(data.data)
                     setLastPage(data.meta.last_page)
                 }catch(e){
                     console.log(e)
                 }                  
             }
         )()
-    }, [page])
+    },[page])
 
-    const handleNextPage = () => {
-        if (page === lastPage) return
-        setPage(page + 1)
-    
-    }
-    const handlePreviousPage = () => {
-        if (page === 1) return
-        setPage(page - 1)
-    }
-
-    const deleteUser = async (id: number) => {
-        if (window.confirm('Are you sure you want to delete this record?')){
-
+    const deleteProduct = async (id: number) => {
+            
+        if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                await axios.delete(`users/${id}`)
-                setUsers(users.filter((u: UserType) => {
-                    return u.id !== id
-                }))
+                const response = await axios.delete(`products/${id}`)
+                console.log(response)
+                setProducts(products.filter((p: ProductType) => p.id !== id))
             }catch(e){
                 console.log(e)
-            }           
-        }
+            }
+        }                       
     }
-
+    
     return (
         <Wrapper>
             <div className="add-user-box">
-                <a href="/users/create">Add</a>
+                    <a href="/roles/create">Add</a>
             </div>
             <div className="table-responsive small">
-                <table className="table table-striped table-sm border">
+                <table className="table table-striped table-sm border table-products">
                     <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        users.map((u: UserType) => {
+                        products.map((p: ProductType) => {
                             return (
-                                <tr key={u.id}>
-                                    <td>{u.id}</td>
-                                    <td>{`${u.first_name} ${u.last_name}`}</td>
-                                    <td>{u.email}</td>
-                                    <td>{u.role?.name}</td>
+                                <tr key={p.id}>
+                                    <td>{p.id}</td>
+                                    <td><img src={p.image} alt={p.title} /></td>
+                                    <td>{p.title}</td>
+                                    <td><p>{p.description}</p></td>
+                                    
+                                    <td>{p.price}</td>
                                     <td className='actions'>
-                                        <Link to={`/users/${u.id}/edit`}>Edit</Link>
+                                        <Link to={`/products/${p.id}/edit`}>Edit</Link>
                                         <button 
-                                            onClick={() => {deleteUser(u.id)}}
+                                            onClick={() => {deleteProduct(p.id)}}
                                             className='delete-button'
                                         >
                                             Delete
@@ -106,4 +96,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default Products

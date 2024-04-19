@@ -1,14 +1,9 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
+import { capitalizeWord } from '../../utils'
 import axios from 'axios'
 import '../../Form.css'
-
-interface MatchParams {
-    name: string;
-}
-
-
 
 type RoleType = {
     id: number;
@@ -66,10 +61,6 @@ const UsersEdit = () => {
             console.log(e)
         }
 
-    }
-
-    const capitalizeWord = (w: string): string => {
-        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() 
     }
 
     return (

@@ -29,7 +29,7 @@ const Roles = () => {
             
         if (window.confirm('Are you sure you want to delete this role?')) {
             try {
-                const response = await axios.delete(`role/${id}`)
+                const response = await axios.delete(`roles/${id}`)
                 console.log(response)
                 setRoles(roles.filter((r: RoleType) => r.id !== id))
             }catch(e){
@@ -41,7 +41,7 @@ const Roles = () => {
     return (
         <Wrapper>
             <div className="add-user-box">
-                    <a href="/users/create">Add</a>
+                    <a href="/roles/create">Add</a>
             </div>
             <div className="table-responsive small">
                 <table className="table table-striped table-sm border">
