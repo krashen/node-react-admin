@@ -48,7 +48,7 @@ const Products = () => {
     return (
         <Wrapper>
             <div className="add-user-box">
-                    <a href="/roles/create">Add</a>
+                    <a href="/products/create">Add</a>
             </div>
             <div className="table-responsive small">
                 <table className="table table-striped table-sm border table-products">

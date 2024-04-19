@@ -6,11 +6,12 @@ import Users from './pages/users/Users'
 import Roles from './pages/roles/Roles'
 import RolesCreate from './pages/roles/RolesCreate'
 import RolesEdit from './pages/roles/RolesEdit'
-import Products from './pages/products/Products'
 import UsersCreate from './pages/users/UsersCreate'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import UsersEdit from './pages/users/UsersEdit'
+import ProductsCreate from './pages/products/ProductsCreate'
+import Products from './pages/products/Products'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path={'/roles/create'} Component={RolesCreate} />
             <Route path={'/roles/:id/edit'} Component={RolesEdit} />
             <Route path={'/products'} Component={Products} />
+            <Route path={'/products/create'} Component={ProductsCreate} />
           </Routes>        
       </div>
       </BrowserRouter>

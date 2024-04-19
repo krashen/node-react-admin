@@ -157,7 +157,37 @@ table .actions a {
   width:100px;
 }
 
-.table-products td.description{
+.table-products td p{
   max-width: 450px;
   
+}
+
+textarea {
+  margin: 00 00 10px 00;
+  font-size: 12px !important;
+}
+
+textarea::placeholder {
+  font-size: 12px;
+  color: #333;
+}
+
+.input-group {
+  font-size: 12px;
+  margin: 00 00 10px 00;
+}
+
+.input-group input{
+  margin-right: 6px !important;
+}
+
+.input-group label {
+  font-size: 12px;
+  padding: 3px 6px;
+  display: inline-block;
+  margin-left: 6px !important;
+}
+
+.input-group .btn-primary input {
+  margin:00 !important;
 }
