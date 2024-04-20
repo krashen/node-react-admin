@@ -5,7 +5,7 @@ import { Parser } from 'json2csv';
 import { OrderItem } from '../entity/order-item.entity';
 
 export const Orders = async (req: Request, res: Response) => {
-    const itemsPerPage = 10
+    const itemsPerPage = 20
     const page = parseInt(req.query.page as string) || 1
     const repository = AppDataSource.getRepository(Order)
 

@@ -1,31 +1,47 @@
-import { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
 import ImageUploader from '../../components/ImageUploader'
 
-
-const ProductsCreate = () => {
+const ProductEdit = () => {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')
     const [price, setPrice] = useState('')
-    
     const [redirectAfter, setRedirectAfter] = useState(false)
+    const {id} = useParams()
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const {data} = await axios.get(`products/${id}`)
+
+                setTitle(data.title)
+                setDescription(data.description)
+                setImage(data.image)
+                setPrice(data.price)
+                                   
+            } catch(e) {
+                console.log(e)
+            }
+            
+        })()
+    },[])
     
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
         try {
-            const response = await axios.post('products',{
+            const response = await axios.put(`products/${id}`,{
                 title,
                 description,
                 image,
                 price: parseInt(price)
             })
             console.log(response)
-            if (response.status === 201) {
+            if (response.status === 202) {
                 setRedirectAfter(true)           
             }
         } catch(e) {
@@ -44,6 +60,7 @@ const ProductsCreate = () => {
                     <input
                         className="form-control" 
                         placeholder="Title"
+                        defaultValue={title}
                         onChange={e => setTitle(e.target.value)}
                         required 
                     />
@@ -51,6 +68,7 @@ const ProductsCreate = () => {
                     <textarea
                         className="form-control" 
                         placeholder="Description"
+                        defaultValue={description}
                         onChange={e => setDescription(e.target.value)}
                         required 
                     >
@@ -68,7 +86,7 @@ const ProductsCreate = () => {
                         <input
                             className="form-control" 
                             placeholder="Image URL"
-                            value={image}
+                            defaultValue={image}
                             onChange={e => setImage(e.target.value)}
                         />
                         or
@@ -81,6 +99,7 @@ const ProductsCreate = () => {
                         className="form-control" 
                         placeholder="Price"
                         type="number"
+                        defaultValue={price}
                         onChange={e => setPrice(e.target.value)}
                         required 
                     />
@@ -94,4 +113,4 @@ const ProductsCreate = () => {
     )
 }
 
-export default ProductsCreate
+export default ProductEdit

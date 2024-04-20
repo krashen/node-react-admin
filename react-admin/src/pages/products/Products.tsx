@@ -68,7 +68,11 @@ const Products = () => {
                             return (
                                 <tr key={p.id}>
                                     <td>{p.id}</td>
-                                    <td><img src={p.image} alt={p.title} /></td>
+                                    <td>
+                                        { (p.image.length > 0) ?
+                                            <img src={p.image} alt={p.title} /> : <p>(No image)</p>
+                                        }
+                                    </td>
                                     <td>{p.title}</td>
                                     <td><p>{p.description}</p></td>
                                     

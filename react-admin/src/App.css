@@ -105,6 +105,37 @@ table tr:nth-child(even) td {
   background: #dfdfdf;
 }
 
+table.table-order-details {
+  width: fit-content;
+  margin:00 00 00 00;
+}
+
+table.table-orders thead th {
+  background: #ddd;
+}
+
+table.table-orders tr td {
+  background: #fff;
+}
+
+table.table-order-details tr td {
+  background: #fff !important;
+}
+
+table.table-order-details thead th {
+  background: #fff;
+  font-size: 11px;
+}
+
+table .orders-extra-td {
+  padding:10px 00;
+}
+
+table.table-orders tr td.orders-colored-td {
+  background:#ddd;
+  padding:20px;
+}
+
 .pagination-nav {
   overflow: hidden;
   display: flex;
@@ -190,4 +221,27 @@ textarea::placeholder {
 
 .input-group .btn-primary input {
   margin:00 !important;
+}
+
+.small-image {
+  text-align: left;
+  margin:00 00 5px 00;
+}
+
+.small-image img {
+  max-width: 100px;
+}
+
+.small-image button{
+  border:#bbb 1px solid;
+  display: inline-block;
+  font-size: 10px;
+  background: none;
+  margin: 00 00 00 10px;
+  padding:2px;
+  width:13px;
+  height: 13px;
+  line-height: 0;
+  box-sizing: border-box;
+  color:#990000
 }

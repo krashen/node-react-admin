@@ -11,7 +11,9 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import UsersEdit from './pages/users/UsersEdit'
 import ProductsCreate from './pages/products/ProductsCreate'
+import ProductsEdit from './pages/products/ProductsEdit'
 import Products from './pages/products/Products'
+import Orders from './pages/orders/Orders';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
             <Route path={'/roles/:id/edit'} Component={RolesEdit} />
             <Route path={'/products'} Component={Products} />
             <Route path={'/products/create'} Component={ProductsCreate} />
+            <Route path={'/products/:id/edit'} Component={ProductsEdit} />
+            <Route path={'/orders'} Component={Orders} />
           </Routes>        
       </div>
       </BrowserRouter>
