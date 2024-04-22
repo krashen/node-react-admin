@@ -2,7 +2,7 @@ import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { Navigate, useParams } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper.component'
-import ImageUploader from '../../components/ImageUploader'
+import ImageUploader from '../../components/ImageUploader.component'
 
 const ProductEdit = () => {
 

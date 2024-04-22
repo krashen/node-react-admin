@@ -24,16 +24,16 @@ import { PermissionMiddleware } from './middleware/permission.middleware'
 
 
 export const routes = (router: Router) => {
+    // Middleware Users
+    const middlewareUser = PermissionMiddleware('users')
+
     router.post('/api/register', Register)
     router.post('/api/login', Login)
     router.get('/api/user', AuthMiddleware, AuthenticatedUser)
     router.post('/api/logout', AuthMiddleware, Logout)
-    router.put('/api/users/info', AuthMiddleware, UpdateInfo)
-
-    // Middleware Users
-    const middlewareUser = PermissionMiddleware('users')
+    router.put('/api/user/info', AuthMiddleware, UpdateInfo)
+    router.put('/api/user/password', AuthMiddleware, middlewareUser , UpdatePassword)
     
-    router.put('/api/users/password', AuthMiddleware, middlewareUser , UpdatePassword)
     router.get('/api/users', AuthMiddleware, middlewareUser, Users)
     router.post('/api/users', AuthMiddleware, middlewareUser, CreateUser)
     router.get('/api/users/:id', AuthMiddleware, middlewareUser, GetUser)

@@ -13,7 +13,8 @@ import UsersEdit from './pages/users/UsersEdit'
 import ProductsCreate from './pages/products/ProductsCreate'
 import ProductsEdit from './pages/products/ProductsEdit'
 import Products from './pages/products/Products'
-import Orders from './pages/orders/Orders';
+import Orders from './pages/orders/Orders'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path={'/products/create'} Component={ProductsCreate} />
             <Route path={'/products/:id/edit'} Component={ProductsEdit} />
             <Route path={'/orders'} Component={Orders} />
+            <Route path={'/profile'} Component={Profile} />
           </Routes>        
       </div>
       </BrowserRouter>

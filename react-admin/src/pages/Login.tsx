@@ -2,23 +2,30 @@ import { SyntheticEvent, useState } from 'react'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom'
 import WrapperForm from '../components/WrapperForm.component'
+import Message from '../components/Message.component'
+
 
 const Login = () => {
 
     const [redirectAfter, setRedirectAfter] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [message, setMessage] = useState(false)
 
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault()
-        const response = await axios.post('login', {
-            email,
-            password
-        })
 
-        if (response.status === 200) {
-            setRedirectAfter(true)           
-        }
+            await axios.post('login', {
+                email,
+                password
+            }).then(r => {
+                if (r.status === 200) {
+                    setRedirectAfter(true)           
+                }
+            }).catch(e => {
+                console.log(e)
+                setMessage(true)
+            })
 
     }
 
@@ -39,6 +46,7 @@ const Login = () => {
                 
                 <button
                     className="btn btn-primary w-100 py-2" type="submit">Submit</button>
+                {message && <Message text='Invalid credentials' color='red' /> }
                 
             </form>
         </WrapperForm>

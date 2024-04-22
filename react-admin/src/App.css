@@ -131,10 +131,10 @@ table .orders-extra-td {
   padding:10px 00;
 }
 
-table.table-orders tr td.orders-colored-td {
+table .orders-colored-div {
   background:#ddd;
-  padding:20px;
 }
+
 
 .pagination-nav {
   overflow: hidden;
@@ -172,7 +172,7 @@ table .actions a {
   text-align: left;
 }
 
-.add-user-box a {
+.add-user-box a, .add-user-box button {
   display: inline-block;
   padding: 5px;
   border: 1px solid #ccc;
@@ -244,4 +244,8 @@ textarea::placeholder {
   line-height: 0;
   box-sizing: border-box;
   color:#990000
+}
+
+#chart {
+  font-size: 12px;
 }

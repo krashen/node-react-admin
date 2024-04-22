@@ -4,6 +4,18 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Paginator from '../../components/Paginator.component'
 
+const hide = {
+    maxHeight: 0,
+    padding:'00',
+    transition: '200ms ease-in'
+}
+
+const show = {
+    maxHeight: 'none',
+    padding:'20px',
+    transition: '200ms ease-out'
+}
+
 type OrderItemsType = {
     id: number;
     product_title: string;
@@ -24,6 +36,7 @@ const Orders = () => {
     const [orders, setOrders] = useState([])
     const [page, setPage] = useState(1)
     const [lastPage, setLastPage] = useState(0)
+    const [selected, setSelected] = useState(-1)
 
     useEffect(() => {
         (   
@@ -39,23 +52,32 @@ const Orders = () => {
         )()
     },[page])
 
-    /* const deleteProduct = async (id: number) => {
-            
-        if (window.confirm('Are you sure you want to delete this product?')) {
-            try {
-                const response = await axios.delete(`products/${id}`)
-                console.log(response)
-                setProducts(products.filter((p: ProductType) => p.id !== id))
-            }catch(e){
-                console.log(e)
-            }
-        }                       
+    const handleView = (id: number) => {
+            setSelected(selected === id? -1 : id)
     }
- */    
+
+    const handleExport = async () => {
+
+        try {
+            const {data} = await axios.post('export', {}, {
+                responseType: 'blob'
+            })
+            const blob = new Blob([data], {
+                type: 'text/csv'
+            })
+            const url = window.URL.createObjectURL(data)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = 'orders.csv'
+            link.click()
+        } catch(e) {
+            console.log(e)
+        }
+    }
     return (
         <Wrapper>
             <div className="add-user-box">
-                    <a href="/products/create">Add</a>
+                    <button onClick={handleExport}>Export</button>
             </div>
             <div className="table-responsive small">
                 <table className="table table-sm border table-orders">
@@ -79,19 +101,17 @@ const Orders = () => {
                                         <td>{o.email}</td>
                                         <td>Total: <b>${o.total}</b></td>
                                         <td className='actions'>
-                                            <Link to={`/products/${o.id}/edit`}>Edit</Link>
-                                            <button 
-                                                //onClick={() => {deleteProduct(o.id)}}
-                                                className='delete-button'
-                                            >
-                                                Delete
-                                            </button>
-                                            
+                                            <button
+                                                onClick={() => {handleView(o.id)}}
+                                            >View</button>                                            
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="orders-colored-td" colSpan={5}>
-                                            <div>
+                                        <td colSpan={5}>
+                                            <div 
+                                                className='overflow-hidden orders-colored-div' 
+                                                style={selected === o.id ? show : hide}
+                                            >
                                                 <table className="table talbe-sm table-order-details">
                                                     <thead>
                                                         <tr>
@@ -113,9 +133,6 @@ const Orders = () => {
                                                 </table>
                                             </div>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={5} className='orders-extra-td'></td>
                                     </tr>
                                 </Fragment>
                             )

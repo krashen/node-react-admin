@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const Paginator = (props: {page: number, lastPage: number, pageChanged: (page: number) => void}) => {
 
     const handleNextPage = () => {

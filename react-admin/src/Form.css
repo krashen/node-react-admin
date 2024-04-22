@@ -43,3 +43,18 @@
 .list-group input.form-check-input {
   margin:3px 5px 00 00
 }
+
+form {
+  margin-bottom: 30px;
+}
+
+.message {
+  padding:5px;
+  margin:00 00 5px 00;
+  font-size: 10px;
+  color:green;
+}
+
+.message.red {
+  color:red
+}
