@@ -1,4 +1,4 @@
-# Full-stack admin page using Node, Reactjs, Redux, Typescript and Bootstrap
+# Full-stack admin app with Node, Reactjs, Redux, Typescript and Bootstrap
 
 Node back-end provides multiple endpoints, all of them consumed by front-end:
 
