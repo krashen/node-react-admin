@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import Nav from './Nav.component'
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import axios from 'axios'
+import { Navigate, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../redux'
+import { updateUser } from '../redux/userReducer'
 
 
 type Props = {
@@ -11,21 +13,18 @@ type Props = {
 
 const Wrapper = ({children}: Props) => {
 
-    const emptyUser = {
-        id : 0,
-        first_name: '',
-        last_name: '',
-        email: ''
-    }    
-
     const [redirectToLogin, setRedirectToLogin] = useState(false)
-    const [user, setUser] = useState(emptyUser)
+    
+    const dispatch = useDispatch()
+    const user = useSelector((state: RootState) => {
+        return state.issue.user
+    })
     
     useEffect(()=> {    
         (async () => {
             try {
                 const {data} = await axios.get('user')
-                setUser(data)
+                dispatch(updateUser(data))
             } catch(e) {
                 console.log(e)
                 setRedirectToLogin(true)

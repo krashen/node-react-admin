@@ -3,6 +3,9 @@ import Wrapper from '../components/Wrapper.component'
 import axios from 'axios'
 import '../Form.css'
 import Message from '../components/Message.component'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../redux'
+import { updateUser } from '../redux/userReducer'
 
 const Profile = () => {
 
@@ -16,23 +19,18 @@ const Profile = () => {
     const [userUpdatedMessage, setUserUpdatedMessage] = useState(false)
     const [passwordUpdatedMessage, setPasswordUpdatedMessage] = useState(false)
 
-    useEffect(() => {
-        (
-            async () => {
-                try {
-                    const {data} = await axios.get('user')
 
-                    setFirstName(data.first_name)
-                    setLastName(data.last_name)
-                    setEmail(data.email)
-                   
-                } catch(e) {
-                    console.log(e)
-                }
-                
-            }
-        )()
-    }, [])
+
+    const dispatch = useDispatch()
+    const user = useSelector((state: RootState) => {
+        return state.issue.user
+    })
+    
+    useEffect(() => {
+        setFirstName(user.first_name)
+        setLastName(user.last_name)
+        setEmail(user.email)
+    }, [user])
 
     const handleSubmitProfileUpdate = async (e: SyntheticEvent) => {
         e.preventDefault()
@@ -43,9 +41,10 @@ const Profile = () => {
                 last_name: lastName,
                 email,
             })
-            console.log(response)
+
             if (response.status === 200) {
-                setUserUpdatedMessage(true)           
+                setUserUpdatedMessage(true) 
+                dispatch(updateUser(response.data))          
             }
         } catch(e) {
             console.log(e)
@@ -72,7 +71,7 @@ const Profile = () => {
                 password,
                 password_confirm: passwordConfirm
             })
-            console.log(response)
+
             if (response.status === 200) {
                 setPasswordUpdatedMessage(true) 
                 if (passwordRef.current && passwordConfirmRef.current) {
